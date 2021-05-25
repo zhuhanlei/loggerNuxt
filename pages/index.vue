@@ -1,30 +1,12 @@
 <template>
   <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        nuxtjs
-      </h1>
-      <h2 class="subtitle">
-        My astonishing Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+      <div class="wrapper">
+        <textarea name="" id="" v-model="value"></textarea>
+        <ul>
+          <li v-for="(item, index) in list" :key="index">{{item}}</li>
+        </ul>
       </div>
-    </div>
+      <button @click="formatBtnHandler">format</button>
   </div>
 </template>
 
@@ -32,41 +14,39 @@
 import Logo from '~/components/Logo.vue'
 
 export default {
-  components: {
-    Logo
+  data(){
+    return {
+      value: '',
+      list: []
+    }
+  },
+  methods: {
+    formatBtnHandler(){
+      let fileText = this.value
+      fileText = fileText.replace(/[\r\n]/g,"");
+      const matchReg = /ZUIR.*?D=[1-9]\)/ig;
+      const arr = fileText.match(matchReg)
+      this.list = arr
+    }
   }
 }
 </script>
 
 <style>
 .container {
-  margin: 0 auto;
   min-height: 100vh;
+}
+.wrapper{
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  text-align: center;
 }
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+textarea{
+  width: 600px;
+  height: 700px;
 }
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+ul{
+  width: 600px;
+  margin-left: 20px;
 }
 </style>
